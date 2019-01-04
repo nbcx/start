@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>百度地图</title>
+    <style>
+        html{height:100%}body{height:100%;margin:0;padding:0}#container{height:100%}#myPageTop{position:absolute;z-index:10;top:0;left:50%;transform:translateX(-50%);background:#fff;width:80%;padding:20px}#myPageTop a{display:inline-block;text-align:center;padding:6px 20px;color:#fff;background:#a0c8ff;text-decoration:none}#myPageTop #show{display:block}#myPageTop input{font-size:14px;padding:6px 8px;border:1px solid #ccc;outline:0}.pageShow h3{margin:20px 0 10px}#panel{position:absolute;background-color:#fff;max-height:90%;overflow-y:auto;top:10px;right:10px;width:280px}.infowindow-content{padding:12px 8px;color:#fff;background:#ccc}h3{font-family:microsoft yahei;!important}.pageShow{display:none}
+    </style>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Hy39puRjkD52O5l2T0ne7ZpSepVNY3fN"></script>
+    <script>
+        window.onload=function(){var map=new BMap.Map("container");var point=new BMap.Point(118.756376,32.052573);map.centerAndZoom(point,12);map.addControl(new BMap.ScaleControl());map.addControl(new BMap.OverviewMapControl());map.addControl(new BMap.MapTypeControl());map.enableScrollWheelZoom()
+            var marker=new BMap.Marker(point);marker.enableDragging();var local=new BMap.LocalSearch(map,{renderOptions:{map:map}});local.search('南京市');var driving=new BMap.DrivingRoute(map,{renderOptions:{map:map,autoViewport:true}});var walking=new BMap.WalkingRoute(map,{renderOptions:{map:map}});var transit=new BMap.TransitRoute(map,{renderOptions:{map:map,panel:"results"}});$(function(){$('#city').on('click',function(){$('.pageShow').slideToggle();local.search($('#local').val());})
+                $('#car').on('click',function(){$('.pageShow').slideToggle();driving.search($('#star').val(),$('#end').val());})
+                $('#bus').on('click',function(){$('.pageShow').slideToggle();transit.search($('#bStar').val(),$('#bEnd').val());})
+                $('#walk').on('click',function(){$('.pageShow').slideToggle();walking.search($('#wStar').val(),$('#wEnd').val());})})
+            $("#show").on('click',function(){$('.pageShow').slideToggle();})}
+    </script>
+</head>
+<body>
+<div id="myPageTop">
+    <a href="javascript:void(0);" id="show">
+        点击试试———路线工具（展开/收缩）
+    </a>
+    <div class="pageShow">
+        <h3>搜索地址</h3>
+        <input id="local" placeholder="模糊地址搜索">
+        <span>—&nbsp;—</span>
+        <a id="city" href="javascript:void(0);">
+            点击搜索
+        </a>
+        <h3>搜索行车路径</h3>
+        <input id="star" placeholder="行车开始地址">
+        <span>—&nbsp;—</span>
+        <input id="end" placeholder="行车结束地址">
+        <span>—&nbsp;—</span>
+        <a id="car" href="javascript:void(0);">
+            点击搜索
+        </a>
+        <h3>搜索公交路径</h3>
+        <input id="bStar" placeholder="公交开始地址">
+        <span>—&nbsp;—</span>
+        <input id="bEnd" placeholder="公交结束地址">
+        <span>—&nbsp;—</span>
+        <a id="bus" href="javascript:void(0);">
+            点击搜索
+        </a>
+        <h3>搜索步行路径</h3>
+        <input id="wStar" placeholder="步行开始地址">
+        <span>—&nbsp;—</span>
+        <input id="wEnd" placeholder="步行结束地址">
+        <span>—&nbsp;—</span>
+        <a id="walk" href="javascript:void(0);">
+            点击搜索
+        </a>
+    </div>
+</div>
+<div id="container"></div>
+<div id="panel"></div>
+</body>
+</html>

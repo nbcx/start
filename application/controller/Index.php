@@ -31,4 +31,14 @@ class Index extends Administration {
     public function test2() {
         $this->display('test2');
     }
+
+    public function map() {
+        $this->assign('ak','DD205ad29d809f6a8cc23d82189745fa');
+        $this->display('map');
+    }
+
+    public function map2() {
+        $this->assign('ak','DD205ad29d809f6a8cc23d82189745fa');
+        $this->display('map2');
+    }
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak={$ak}"></script>
+    <title>批量转换</title>
+</head>
+<body>
+    <div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+    var points = [
+        new BMap.Point(116.3786889372559,39.90762965106183),
+        new BMap.Point(116.38632786853032,39.90795884517671),
+        new BMap.Point(116.39534009082035,39.907432133833574),
+        new BMap.Point(116.40624058825688,39.90789300648029),
+        new BMap.Point(116.41413701159672,39.90795884517671)
+    ];
+
+    //地图初始化
+    var bm = new BMap.Map("allmap");
+    bm.centerAndZoom(new BMap.Point(116.378688937,39.9076296510), 15);
+
+    //坐标转换完之后的回调函数
+    translateCallback = function (data){
+        if(data.status === 0) {
+            for (var i = 0; i < data.points.length; i++) {
+                var marker=new BMap.Marker(data.points[i]);
+                var html='<a href="https://nb.cx" target="_blank">nb</a>你自己的html:'+i;
+                var infoWindow = new BMap.InfoWindow(html);//创建窗口信息
+                marker.infoWindow=infoWindow;//给当前标注新增一个属性以便保存窗口信息infoWindow
+
+                //添加标注的点击事件回调
+                marker.addEventListener("click", function(e){
+                    //点击标注时，打开改标注对应的回调信息
+                    this.openInfoWindow(e.target.infoWindow);
+                    //如果没猜错，你原来在这里的代码应该如下：
+                    //this.openInfoWindow(infoWindow);
+                    //那样就会导致每次标注点击后，弹出的窗口信息都是最后一次循环的infoWindow。
+                    //因为在click的时候只会去找infoWindow这个变量值，而你的click肯定是在所有循环的
+                    //标注都产生完之后，此时infoWindow变量已经被赋值成了最后一次循环的值。
+                });
+                bm.addOverlay(marker);//添加标注到地图
+
+
+                //bm.addOverlay(marker);
+                bm.setCenter(data.points[i]);
+            }
+        }
+    }
+    var convertor = new BMap.Convertor();
+    convertor.translate(points, 1, 5, translateCallback)
+    //setTimeout(function(){
+    //    var convertor = new BMap.Convertor();
+    //    convertor.translate(points, 1, 5, translateCallback)
+    //}, 1000);
+</script>
