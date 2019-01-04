@@ -1,0 +1,24 @@
+{
+  "name": "nb/start",
+  "description": "the framework demo",
+  "type": "project",
+  "keywords": [
+    "framework",
+    "nb",
+    "swoole",
+    "admin"
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "nbcx/framework": "dev-master"
+  },
+  "require-dev": {
+    "wudi/swoole-ide-helper": "dev-master"
+  },
+  "extra": {
+    "nb-path": "nb"
+  },
+  "config": {
+    "preferred-install": "dist"
+  }
+}

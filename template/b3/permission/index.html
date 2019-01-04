@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <include file="header" />
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.css">
+</head>
+
+<body>
+
+<include file="nav" />
+
+<div class="container-fluid">
+    <div class="row">
+
+        <include file="menu" />
+
+        <div class="col-sm-9  col-md-9 main">
+            <h1 class="page-header">功能权限列表</h1>
+
+            <div class="table-responsive">
+                <div class="table-tool">
+                    <a class="btn btn-success" href="/permission/add"><span class="glyphicon glyphicon-plus"></span> 添加</a>
+                    <a class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 删除</a>
+
+                    <a class="btn btn-success" data-toggle="modal" data-url="/permission/reorder" href="#infoModal">远程信息</a>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-wrench"></span> 更多 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <table class="table" data-toggle="table" data-classes="table table-striped table-no-bordered" data-pagination="true">
+                    <thead>
+                        <tr>
+                            <th><input data-index="1" name="btSelectItem" type="checkbox"></th>
+                            <th>名称</th>
+                            <th>规则</th>
+                            <th>状态</th>
+                            <th>模块</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <volist name="permissions" id="v">
+                            <tr>
+                                <td><input data-index="1" name="btSelectItem" type="checkbox"></td>
+                                <td>{$v.title}</td>
+                                <td>{$v.name}</td>
+                                <td>Item 1</td>
+                                <td>default</td>
+                                <td><a href="javascript:;" class="btn btn-xs btn-primary btn-dragsort" data-toggle="tooltip" title="" data-table-id="table" data-field-index="11" data-row-index="0" data-button-index="0" data-original-title="拖动进行排序"><span class="glyphicon glyphicon-glass"></span></a></td>
+                            </tr>
+                        </volist>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="infoModal"></div>
+
+<include file="footer" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script>
+    $('#infoModal').on('show.bs.modal', function (e) {
+        // do something...
+        $("#infoModal").load('/permission/reorder');
+    })
+</script>
+<link rel="stylesheet" href="https://cdn.nb.cx/ztree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<!--
+<link rel="stylesheet" href="https://cdn.nb.cx/ztree/v3/css/bootstrapStyle/bootstrapStyle.css" type="text/css">
+-->
+<script type="text/javascript" src="https://cdn.nb.cx/ztree/v3/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="https://cdn.nb.cx/ztree/v3/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="https://cdn.nb.cx/ztree/v3/js/jquery.ztree.exedit.js"></script>
+
+</body>
+</html>
+
+
+

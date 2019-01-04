@@ -1,0 +1,200 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Nbmin - framework</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://cdn.nb.cx/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<style>
+    /*
+     * Base structure
+     */
+    /* Move down content because we have a fixed navbar that is 50px tall */
+    body {
+        padding-top: 50px;
+    }
+
+    /*
+     * Global add-ons
+     */
+    .sub-header {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    /*
+     * Top navigation
+     * Hide default border to remove 1px line.
+     */
+    .navbar-fixed-top {
+        border: 0;
+    }
+
+    .navbar-inverse {
+        background-color: #343a40;
+        border-color: #080808;
+    }
+
+    .navbar-header {
+        background-color: rgba(0, 0, 0, .25);
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+    }
+
+    /*
+     * Main content
+     */
+    .main {
+        padding: 20px;
+    }
+    .main .page-header {
+        margin-top: 0;
+    }
+
+    /*
+     * Sidebar
+     */
+
+    /* Hide for mobile, show later */
+    .sidebar {
+        display: none;
+    }
+    @media (min-width: 768px) {
+        .main {
+            padding-right: 25px;
+            padding-left: 25px;
+            margin-left: 195px;
+            overflow-x: hidden;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            display: block;
+            padding: 20px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            background-color: #f8f9fa!important;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+        .l-max {
+            width: 195px;
+        }
+        .r-max {
+            max-width: 600px;
+            overflow-x: hidden;
+        }
+    }
+
+    /* Sidebar navigation */
+    .nav-sidebar {
+        margin-right: -21px; /* 20px padding + 1px border */
+        margin-bottom: 20px;
+        margin-left: -20px;
+    }
+    .nav-sidebar > li > a {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+    .nav-sidebar > .active > a,
+    .nav-sidebar > .active > a:hover,
+    .nav-sidebar > .active > a:focus {
+        color: #fff;
+        background-color: #428bca;
+    }
+</style>
+<style>
+    .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+        color: #fff;
+        background-color: unset;
+    }
+    .table-tool {
+        border-bottom: 1px solid #eee;padding-bottom: 9px;
+    }
+    @media screen and (max-width: 767px) {
+        .table-responsive {
+            border: unset;
+        }
+    }
+    .glyphicon {
+        top: 1.5px;
+    }
+
+</style>
+
+<style>
+    .sidebar ul {
+        position: relative;
+        top: 40px;
+        left: 0;
+        z-index: 1000;
+        float: left;
+        min-width: 160px;
+        padding: unset;
+        margin: unset;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+    }
+    .sidebar ul .divider {
+        height: 1px;
+        margin: 9px 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+    }
+    .sidebar ul>li>a {
+        display: inline-block;
+
+        clear: both;
+        font-weight: 500;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+
+        text-decoration: none;
+        padding: .5rem 0rem;
+    }
+    .dropdown-header {
+        display: block;
+        padding: 3px 0px;
+        font-size: 12px;
+        line-height: 1.42857143;
+        color: #777;
+        white-space: nowrap;
+    }
+
+    .sidebar .nav-link .feather {
+        margin-right: 4px;
+        color: #999;
+    }
+    svg:not(:root) {
+        overflow: hidden;
+    }
+    .feather {
+        width: 16px;
+        height: 16px;
+        vertical-align: text-bottom;
+    }
+</style>
+
+<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->

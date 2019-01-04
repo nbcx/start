@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <include file="header" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.css">
+</head>
+
+<body>
+
+<include file="nav" />
+
+<div class="container-fluid">
+    <div class="row">
+
+        <include file="menu" />
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">菜单</h1>
+
+            <div class="table-responsive">
+                <div class="table-tool">
+                    <a class="btn btn-success" href="/menu/add">
+                        <span data-feather="plus"></span> 添加
+                    </a>
+                    <a class="btn btn-danger"><span data-feather="trash-2"></span> 删除</a>
+                </div>
+                <table class="table" data-toggle="table" data-classes="table table-striped table-no-bordered" data-pagination="true">
+                <thead>
+                    <tr>
+                        <th><input data-index="0" name="btSelectItem" type="checkbox"></th>
+                        <th>名称</th>
+                        <th>状态</th>
+                        <th>说明</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <volist name="admins" id="v">
+                        <tr>
+                            <td><input data-index="{$v.id}" name="btSelectItem" type="checkbox"></td>
+                            <td>{$v.name}</td>
+                            <td>Item 1</td>
+                            <td>$1</td>
+                            <td>$1d</td>
+                        </tr>
+                    </volist>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="footer" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/locale/bootstrap-table-zh-CN.min.js"></script>
+</body>
+</html>
+
+
+

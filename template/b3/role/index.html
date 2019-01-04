@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <include file="header" />
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.css">
+</head>
+
+<body>
+
+<include file="nav" />
+
+<div class="container-fluid">
+    <div class="row">
+
+        <include file="menu" />
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">角色列表</h1>
+
+            <div class="table-responsive">
+                <div style="border-bottom: 1px solid #eee;padding-bottom: 9px;">
+                    <a class="btn btn-default" href="#" role="button">Link</a>
+                    <button class="btn btn-default" type="submit">Button</button>
+                    <input class="btn btn-success" type="button" value="Input">
+                    <input class="btn btn-info" type="submit" value="Submit">
+                </div>
+                <table data-toggle="table" data-classes="table table-striped table-no-bordered" data-pagination="true">
+                <thead>
+                    <tr>
+                        <th><input data-index="1" name="btSelectItem" type="checkbox"></th>
+                        <th>名称</th>
+                        <th>状态</th>
+                        <th>说明</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <volist name="roles" id="v">
+                        <tr>
+                            <td><input data-index="1" name="btSelectItem" type="checkbox"></td>
+                            <td>{$v.name}</td>
+                            <td>Item 1</td>
+                            <td>$1</td>
+                            <td>$1</td>
+                        </tr>
+                    </volist>
+                    <tr>
+                        <td><input data-index="1" name="btSelectItem" type="checkbox"></td>
+                        <td>1</td>
+                        <td>Item 1</td>
+                        <td>$1</td>
+                        <td>$1</td>
+                    </tr>
+                    <tr>
+                        <td><input data-index="1" name="btSelectItem" type="checkbox"></td>
+                        <td>2</td>
+                        <td>Item 2</td>
+                        <td>$2</td>
+                        <td>$1</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="footer" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/bootstrap-table.min.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.0/locale/bootstrap-table-zh-CN.min.js"></script>
+</body>
+</html>
+
+
+

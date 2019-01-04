@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <include file="header" />
+    <style>
+        .main {
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<include file="nav" />
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-sm-3 col-md-2 sidebar l-max">
+            <ul>
+                <li>
+                    <a href="javascript:;" class="h_nav" data-url="http://www.jq22.com/">
+                        <span class="glyphicon glyphicon-home"></span>
+                        控制台
+                    </a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">扩展</li>
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-inbox"></span>
+                        模块管理
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-picture"></span>
+                        主题管理
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-glass"></span>
+                        插件管理
+                    </a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">权限管理</li>
+                <li>
+                    <a href="/admin">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        管理员列表
+                    </a>
+                </li>
+                <li>
+                    <a href="/role">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        用户组
+                    </a>
+                </li>
+                <li>
+                    <a href="/permission">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        功能权限列表
+                    </a>
+                </li>
+                <li>
+                    <a href="/menu">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        菜单
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-sm-9 col-md-9 main">
+            <ul class="nav nav-tabs" id="helangTab"></ul>
+            <div id="helangFrame"></div>
+
+        </div>
+    </div>
+</div>
+
+<include file="footer" />
+<style type="text/css">
+    #helangFrame{
+        height: 600px;
+    }
+    #helangFrame>iframe{
+        height: 100%;
+        width: 100%;
+        border: #dddddd solid 1px;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+<script>
+    /* 管理系统单页框架-jQuery类级别插件封装 */
+    $.extend({
+        helangSingle:function (defaultParameter) {
+            var helang=new Object();
+            var $nav=$("#helangNav"),$tab=$("#helangTab"),$frame=$("#helangFrame");
+            /* 已选择 */
+            helang.selectedArr=[];
+
+            /* 检索项 */
+            helang.selectItem=function (url) {
+                return index=helang.selectedArr.indexOf(url);
+            };
+            /* 创建项 */
+            helang.creation=function (url,txt) {
+                var index=helang.selectItem(url);
+                if(index>=0){
+                    helang.showItem(index);
+                }
+                else {
+                    $frame.children("iframe").hide();
+                    $frame.append('<iframe src="'+url+'"></iframe>');
+                    $tab.children("li").removeClass("active");
+                    var srt='<span class="h_colse glyphicon glyphicon-remove" data-url="'+url+'"></span>';
+                    if(helang.selectedArr.length<1){
+                        srt='';
+                    }
+                    $tab.append('<li role="presentation" class="active"><a href="javascript:;"> '+txt+' '+srt+' </a> </li>');
+                    helang.selectedArr.push(url);
+                }
+
+            };
+
+            /* 显示项 */
+            helang.showItem=function (index) {
+                $frame.children("iframe").hide();
+                $frame.children("iframe").eq(index).show();
+                $tab.children("li").removeClass("active");
+                $tab.children("li").eq(index).addClass("active");
+            };
+
+            /* 删除项 */
+            helang.deleteItem=function (index) {
+                $frame.children("iframe").eq(index).remove();
+                $tab.children("li").eq(index).remove();
+                helang.selectedArr.splice(index,1);
+            };
+
+            /* 初始化 */
+            helang.init=function () {
+                /* 框架集容器高度 */
+                $frame.css("height",$(window).height()-$("#helangHead").outerHeight()-30+"px");
+
+                /* 导航栏点击 */
+                $nav.on("click",".h_nav",function () {
+                    helang.creation($(this).data("url"),$(this).text());
+                });
+
+                /* 选项卡点击 */
+                $tab.on("click",">li",function () {
+                    var _index=$(this).index();
+                    helang.setTime=setTimeout(function () {
+                        helang.showItem(_index);
+                    },100);
+                });
+
+                /* 选项卡关闭点击 */
+                $tab.on("click",".h_colse",function () {
+                    var _index=helang.selectItem($(this).data("url"));
+                    setTimeout(function () {
+                        clearTimeout(helang.setTime);
+                        if($tab.children("li").eq(_index).hasClass("active")){
+                            setTimeout(function () {
+                                helang.showItem(0);
+                            },10);
+                        }
+                        helang.deleteItem(_index);
+                    },10);
+
+                });
+            };
+            helang.creation(defaultParameter.url,defaultParameter.title);
+            helang.creation('http://www.jq22.com/demo/jQueryManagement201805072103/pages/index.html','test');
+            helang.init();
+        }
+    });
+</script>
+<script type="text/javascript">
+    /* 调用插件 */
+    $.helangSingle({
+        url:"/index/test2",
+        title:"首页"
+    });
+</script>
+</body>
+</html>
