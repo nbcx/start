@@ -51,7 +51,7 @@ class Controller extends \nb\Controller {
             'tpl_replace_string' => [
                 '_cdn_' =>'//cdn.'.$conf->root.'/',
                 '_pub_' =>'/public/',
-                '_theme_'=>"/theme/{$conf->theme}/"
+                '_theme_'=>"/template/{$conf->template}/"
             ],
             'layout_on'   => $conf->theme==='pjax'?:false,
             'layout_name' => 'layout',
