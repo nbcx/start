@@ -15,7 +15,7 @@ return [
     //是否开启调试
     'debug'=>true,
 
-    'template'=>'bootstrap',
+    'template'=>'b3',
 
     //注册模块
     'module_register' => [
