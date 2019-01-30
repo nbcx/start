@@ -15,7 +15,7 @@ return [
     //是否开启调试
     'debug'=>true,
 
-    'template'=>'b3',
+    'template'=>'simple',
 
     //注册模块
     'module_register' => [

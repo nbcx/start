@@ -52,6 +52,10 @@ class Auth extends User {
         return '权限不足';
     }
 
+    public static function power($permissions) {
+
+    }
+
     protected function _role() {
 
     }
