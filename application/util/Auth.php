@@ -52,8 +52,24 @@ class Auth extends User {
         return '权限不足';
     }
 
-    public static function power($permissions) {
+    public function power($permissions=null) {
 
+        //系统管理员拥有所有权限
+        if(!$this->type) {
+            return true;
+        }
+
+        $power = $this->permissions;
+
+        if($permissions === null) {
+            $router = Router::driver();
+            $permissions = strtolower($router->controller.'/'.$router->function);
+        }
+
+        if(in_array($permissions,$power)) {
+            return true;
+        }
+        return false;
     }
 
     protected function _role() {
