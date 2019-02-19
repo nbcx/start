@@ -20,12 +20,16 @@ namespace util;
 class Administration extends Controller {
 
     public function __before() {
-        return true;
-        //请求权限校验
-        if(Auth::init()->can) {
-            ed('权限不足！');
-        }
+        $auth = Auth::init();
+        //if($auth->empty) {
+        //    ed('请登录');
+        //    return false;
+        //}
 
+        if(!$auth->power()) {
+            $this->tips('无权限执行此操作！');
+        }
+        $this->assign('auth',$auth);
         return true;
     }
 

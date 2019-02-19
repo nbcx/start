@@ -12,6 +12,7 @@ namespace util;
 use model\Role;
 use model\User;
 use nb\Pool;
+use nb\Request;
 use nb\Router;
 
 /**
@@ -24,6 +25,9 @@ use nb\Router;
  */
 class Auth extends User {
 
+    /**
+     * @return Auth
+     */
     public static function init() {
         if($user = Pool::get(get_class())) {
             return $user;
@@ -42,7 +46,7 @@ class Auth extends User {
         $db->left('permission_role pr','pr.role_id=role.id');
         $db->left('permission p','p.id=pr.permission_id');
         $db->where('ru.uid=?',1);
-        $db->where('p.module=? and p.name=?',[
+        $db->where('p.module=? and p.rule=?',[
             $router->module?:0,
             $router->controller.'/'.$router->function
         ]);
@@ -55,20 +59,25 @@ class Auth extends User {
     public function power($permissions=null) {
 
         //系统管理员拥有所有权限
-        if(!$this->type) {
-            return true;
-        }
+        //if(!$this->type) {
+        //    return true;
+        //}
 
-        $power = $this->permissions;
-
+        //获取用户的所有权限
+        //默认情况下，自动获取要验证的权限
         if($permissions === null) {
             $router = Router::driver();
-            $permissions = strtolower($router->controller.'/'.$router->function);
+            $supply = Request::input('action');
+            $module = $router->module;
+            $folder = $router->folder;
+            $permissions = ($module?"$module@":'').($folder?"$folder/":'');
+            $permissions = strtolower($permissions.$router->controller.'/'.$router->function.($supply?"#$supply":''));
         }
-
-        if(in_array($permissions,$power)) {
+        //验证是否拥有此权限
+        if(in_array($permissions,$this->permissions)) {
             return true;
         }
+
         return false;
     }
 
@@ -92,7 +101,15 @@ class Auth extends User {
         $db->left('permission_role pr','pr.role_id=role.id');
         $db->left('permission p','p.id=pr.permission_id');
         $db->where('ru.uid=?',1);
-        return $db->fetchAll();
+        $permissions = $db->fetchAll();
+        $temp = [];
+
+        foreach ($permissions as $v) {
+            $module = $v['module'];
+            $temp[] = ($module?"$module@":'').$v['rule'];
+        }
+        //这里可以使用缓存
+        return $temp;
     }
 
 }

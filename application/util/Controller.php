@@ -36,6 +36,11 @@ class Controller extends \nb\Controller {
         }
     }
 
+    protected function tips($hint) {
+        include __APP__ .'template/simple/hint.html';
+        quit();
+    }
+
     private function jsonview() {
         echo $this->json([
             'code'=>0,
