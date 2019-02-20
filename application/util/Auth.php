@@ -11,6 +11,7 @@ namespace util;
 
 use model\Role;
 use model\User;
+use nb\Cookie;
 use nb\Pool;
 use nb\Request;
 use nb\Router;
@@ -32,11 +33,10 @@ class Auth extends User {
         if($user = Pool::get(get_class())) {
             return $user;
         }
-        return Pool::set(get_class(),new Auth([]));
-    }
 
-    public static function check($name,$module=null) {
+        $token = Cookie::get('_s');
 
+        return Pool::set(get_class(), self::find('token=?', $token));
     }
 
     protected function _can() {
@@ -56,35 +56,55 @@ class Auth extends User {
         return '权限不足';
     }
 
-    public function power($permissions=null) {
-
+    /**
+     * 权限验证
+     *
+     * @param null $permission [module@][folder/]controller/function[#action]
+     * @return bool
+     */
+    public function power($permission=null) {
         //系统管理员拥有所有权限
-        //if(!$this->type) {
-        //    return true;
-        //}
-
-        //获取用户的所有权限
-        //默认情况下，自动获取要验证的权限
-        if($permissions === null) {
-            $router = Router::driver();
-            $supply = Request::input('action');
-            $module = $router->module;
-            $folder = $router->folder;
-            $permissions = ($module?"$module@":'').($folder?"$folder/":'');
-            $permissions = strtolower($permissions.$router->controller.'/'.$router->function.($supply?"#$supply":''));
+        if(!$this->administration) {
+            return true;
         }
+
+        //默认使用当前路由权限
+        $permission = $permission?:$this->permission;
+
         //验证是否拥有此权限
-        if(in_array($permissions,$this->permissions)) {
+        if(in_array($permission,$this->permissions)) {
             return true;
         }
 
         return false;
     }
 
+    //是否为超级管理员
+    protected function _administration() {
+        return false;
+    }
+
+    //用户当前使用的用户组
     protected function _role() {
 
     }
 
+    //用户所属的所有用户组
+    protected function _roles() {
+
+    }
+
+    //当前的路由权限
+    protected function _permission() {
+        $router = Router::driver();
+        $supply = Request::input('action');
+        $module = $router->module;
+        $folder = $router->folder;
+        $permissions = ($module?"$module@":'').($folder?"$folder/":'');
+        return strtolower($permissions.$router->controller.'/'.$router->function.($supply?"#$supply":''));
+    }
+
+    //当前用户的所有可用权限
     protected function _permissions() {
         /*
         $db = User::dao()->field('p.*');

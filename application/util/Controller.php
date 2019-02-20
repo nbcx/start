@@ -23,7 +23,7 @@ class Controller extends \nb\Controller {
 
     use Assist;
 
-    public function display($template='', $vars = [], $config = []) {
+    protected function display($template='', $vars = [], $config = []) {
         $return = $this->input('__')?:'html';
         switch ($return) {
             case 'json':

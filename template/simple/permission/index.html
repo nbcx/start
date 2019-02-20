@@ -42,10 +42,10 @@
             <volist name="permissions" id="v">
                 <tr>
                     <td><input data-index="1" name="btSelectItem" type="checkbox"></td>
-                    <td>{$v.title}</td>
                     <td>{$v.name}</td>
+                    <td>{$v.rule}</td>
                     <td>Item 1</td>
-                    <td>default</td>
+                    <td>{$v.module}</td>
                     <td class="text-right">
                         <a href="javascript:;" class="btn btn-xs btn-primary btn-dragsort" data-toggle="tooltip" title="" data-table-id="table" data-field-index="11" data-row-index="0" data-button-index="0" data-original-title="拖动进行排序"><span class="glyphicon glyphicon-glass"></span></a>
                         <a href="/admin/edit?id={$v.id}" class="btn btn-xs btn-primary btn-dragsort"><span class="glyphicon glyphicon-pencil"></span></a>

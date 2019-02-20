@@ -9,6 +9,7 @@
  */
 namespace service;
 
+use nb\Cookie;
 use util\Service;
 
 /**
@@ -22,7 +23,24 @@ use util\Service;
 class Login extends Service {
 
     public function in() {
-
+        list($name,$pass) = $this->input('post',[
+            'name','pass'
+        ]);
+        $user = \util\Auth::find('name=?',$name);
+        if($user->empty) {
+            $this->msg = '用户不存在';
+            return false;
+        }
+        if($user['pass'] !== md5($pass)) {
+            $this->msg = '密码错误';
+            return false;
+        }
+        $token = md5($user->id.time());
+        \util\Auth::updateId($user->id,[
+            'token'=>$token
+        ]);
+        Cookie::set('_s',$token);
+        return true;
     }
 
     public function out() {

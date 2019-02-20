@@ -9,7 +9,7 @@
  */
 namespace controller;
 
-use util\Administration;
+use util\Controller;
 
 /**
  * Login
@@ -19,17 +19,14 @@ use util\Administration;
  * @author: collin <collin@nb.cx>
  * @date: 2019/1/1
  */
-class Login extends Administration {
+class Login extends Controller {
 
     public function index() {
-
-        \service\Role::trigger(\nb\Request::driver()->isPost,'add');
-
         $this->display('login');
     }
 
-    public function out() {
-
+    public function post($action) {
+        \service\Role::run($action);
     }
 
 }

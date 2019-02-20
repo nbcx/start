@@ -28,13 +28,16 @@ class Permission extends Administration {
     }
 
     public function add() {
-        \service\Permission::trigger($this->isPost,'add');
         $this->display();
     }
 
     public function reorder() {
         \service\Permission::trigger($this->isPost,'reorder');
         $this->display();
+    }
+
+    public function post($action) {
+        \service\Permission::run($action);
     }
 
 }
