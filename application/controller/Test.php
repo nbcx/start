@@ -10,7 +10,8 @@
  */
 
 namespace controller;
-use util\Administration;
+use model\User;
+use nb\Controller;
 use util\Auth;
 
 /**
@@ -21,7 +22,7 @@ use util\Auth;
  * @author: collin <collin@nb.cx>
  * @date: 2019/1/30
  */
-class Test extends Administration {
+class Test extends Controller {
 
     public function index() {
         ed(Auth::init()->permissions);
@@ -30,6 +31,12 @@ class Test extends Administration {
 
     public function search() {
         $this->display();
+    }
+
+    public function api() {
+        //$us = User::findId(1);
+        $us = User::fetchs();
+        echo json_encode($us);
     }
 
 }
