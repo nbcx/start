@@ -26,7 +26,8 @@ class Login extends Controller {
     }
 
     public function post($action) {
-        \service\Role::run($action);
+        $ser = \service\Login::run($action);
+        ed($ser->data,$ser->msg);
     }
 
 }

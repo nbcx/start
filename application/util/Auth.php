@@ -35,8 +35,11 @@ class Auth extends User {
         }
 
         $token = Cookie::get('_s');
+        if($token) {
+            return Pool::set(get_class(), self::find('token=?', $token));
+        }
+        return Pool::set(get_class(), new self());
 
-        return Pool::set(get_class(), self::find('token=?', $token));
     }
 
     protected function _can() {

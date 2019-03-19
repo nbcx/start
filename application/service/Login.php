@@ -40,6 +40,7 @@ class Login extends Service {
             'token'=>$token
         ]);
         Cookie::set('_s',$token);
+        $this->data = $token;
         return true;
     }
 
